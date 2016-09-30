@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Points:
+  = @score.points
+%p
+  %b Game at:
+  = @score.game_at
+
+= link_to 'Edit', edit_score_path(@score)
+\|
+= link_to 'Back', scores_path
