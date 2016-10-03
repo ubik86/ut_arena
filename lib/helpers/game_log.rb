@@ -5,8 +5,11 @@ module GameLog
 
     stats = []
     log = false
+    n = 0
 
     file.readlines.each do |line|
+      n++
+      
       if line =~ /Exit/
         log = true
         next
@@ -26,7 +29,7 @@ module GameLog
 
 
   def results(config)
-    stat = import_gamelog('games.log')
+    stat = import_gamelog('games1.log')
     cfg = config
 
 
