@@ -23,28 +23,27 @@ ActiveRecord::Schema.define(version: 20161005094424) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer  "team_id"
     t.string   "name"
     t.string   "ut_nick"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "scores", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "player_id"
+    t.integer  "team_id"
     t.integer  "points"
-    t.datetime "game_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_scores_on_game_id"
     t.index ["player_id"], name: "index_scores_on_player_id"
+    t.index ["team_id"], name: "index_scores_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string   "name"
     t.string   "ut_name"
+    t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
