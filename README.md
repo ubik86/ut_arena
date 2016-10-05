@@ -12,9 +12,11 @@ Things you may want to cover:
 2.3.0
 
 * System dependencies
+  
+
 
 * Configuration
-sqlite
+  sqlite
 
 
 * Database creation
@@ -22,10 +24,12 @@ sqlite
 
 
 * Database initialization
-  
+
+  rake db:migrate
+  rake db:seed
 
 * How to run the test suite
-
+  rake spec
 
 
 * Services (job queues, cache servers, search engines, etc.)
