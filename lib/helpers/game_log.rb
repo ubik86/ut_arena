@@ -8,8 +8,7 @@ module GameLog
     n = 0
 
     file.readlines.each do |line|
-      n++
-      
+
       if line =~ /Exit/
         log = true
         next
