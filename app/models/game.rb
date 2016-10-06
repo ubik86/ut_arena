@@ -1,9 +1,10 @@
 class Game < ApplicationRecord
   has_many :scores
-  belongs_to :import_games
+  belongs_to :import_game
 
-  def self.import_game(game)
-    game_obj = self.new
+  def game_importer(game, import)
+    game_obj = self
+    
     if game.key?(:teams)
       # TODO game should have many teams, teams should have their scores
       # Team.create(ut_name: 'red', game: game_obj, score: game[:teams][:red])
@@ -19,11 +20,16 @@ class Game < ApplicationRecord
       end
       Score.create(player: player_obj, game: game_obj, points: score)
     end
-    game_obj.save
   end
 
-  def self.import_games(list)
-    list.each{|game| self.import_game(game)}
+  def self.games_importer(games, import)
+    games.each do |game|
+      game_obj = Game.new(import_game: import, date: Time.now)
+      game_obj.game_importer(game, import)
+
+      game_obj.name = "Import_#{import.class.all.size + 1}_#{Date.today.to_s}"
+      game_obj.save
+    end
   end
 
 end

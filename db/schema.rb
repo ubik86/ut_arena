@@ -14,11 +14,13 @@ ActiveRecord::Schema.define(version: 20161006100133) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "players_id"
+    t.integer  "import_game_id"
     t.string   "name"
     t.string   "ut_map"
     t.datetime "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["import_game_id"], name: "index_games_on_import_game_id"
     t.index ["players_id"], name: "index_games_on_players_id"
   end
 
