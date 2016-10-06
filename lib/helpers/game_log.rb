@@ -1,7 +1,7 @@
 module GameLog
   def import_gamelog(logfile)
-    path = Dir.pwd + '/public/' + logfile
-    file = File.open(path,'r')
+    #path = Dir.pwd + '/public/' + logfile
+    file = File.open(logfile,'r')
 
     stat = []
     stats = []
@@ -31,8 +31,8 @@ module GameLog
   end
 
 
-  def parse_gamelog
-    stats = import_gamelog('games1.log')
+  def parse_gamelog(path)
+    stats = import_gamelog(path)
     games = Array.new
 
     k = 0
