@@ -1,7 +1,7 @@
 class Game < ApplicationRecord
   has_many :scores
 
-  def self.imported_game(game)
+  def self.import_game(game)
     game_obj = self.new
     if game.key?(:teams)
       # TODO game should have many teams, teams should have their scores
@@ -19,5 +19,9 @@ class Game < ApplicationRecord
       Score.create(player: player_obj, game: game_obj, points: score)
     end
     game_obj.save
+  end
+
+  def self.import_games(list)
+    list.each{|game| self.import_game(game)}
   end
 end

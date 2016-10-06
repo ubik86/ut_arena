@@ -3,9 +3,10 @@ module GameLog
     path = Dir.pwd + '/public/' + logfile
     file = File.open(path,'r')
 
+    stat = []
     stats = []
     log = false
-    n = 0
+    k = 0
 
     file.readlines.each do |line|
 
@@ -16,39 +17,48 @@ module GameLog
 
       if log and line =~ /ClientSpawn/
         log = false
-        break
+
+        stat[k] = stats
+        stats = []
+        k += 1
       end
 
       stats << line if log
 
     end
 
-    stats
+    stat
   end
 
 
-  def results(config)
-    stat = import_gamelog('games1.log')
-    cfg = config
+  def parse_gamelog
+    stats = import_gamelog('games1.log')
+    games = Array.new
 
+    k = 0
 
-    cfg[:teams][:red] = stat[0].match(/(red).(\d+)/)[2]
-    cfg[:teams][:blue] = stat[0].match(/(blue).(\d+)/)[2]
+    stats.each do |st|
+      cfg = sample_cfg
 
-    stat[1..-1].each do |l|
-      score = l.match(/(score). (\d+)/)[2]   
-      player = l.match(/(client). (\d+)\s([\w]+)/)[3]
-      cfg[:players][player.to_sym] = score
+      cfg[:teams][:red] = st[0].match(/(red).(\d+)/)[2]
+      cfg[:teams][:blue] = st[0].match(/(blue).(\d+)/)[2]
+
+      st[1..-1].each do |l|
+        score = l.match(/(score). (\d+)/)[2]   
+        player = l.match(/(client). (\d+)\s([\w]+)/)[3]
+        cfg[:players][player.to_sym] = score
+      end
+
+      games << cfg
+      k += 1
     end
-
-    cfg
+  
+    return games
   end
 
 
   def sample_cfg
     {teams: {red: 0, blue: 0}, players: {}}
   end
-
-
 
 end

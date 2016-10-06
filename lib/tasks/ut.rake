@@ -5,8 +5,9 @@ namespace :ut do
     include GameLog
 
     logfile = 'games.log'
-    stat = results(sample_cfg)
-    p stat
+    games = parse_gamelog
+    Game.import_games games
+    p games
   end
 
   desc "TODO"
