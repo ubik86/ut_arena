@@ -20,6 +20,8 @@ end
 gem 'haml'
 gem 'haml-rails'
 
+gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
 
 gem 'devise'
 

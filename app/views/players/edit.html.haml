@@ -1,7 +1,7 @@
-%h1 Editing player
+%div{class:"col-xs-9"}
+  %h1 Editing player
 
-= render 'form'
-
-= link_to 'Show', @player
-\|
-= link_to 'Back', players_path
+%div{class:"col-xs-9"}
+  = render 'form'
+  = link_to 'Show', @player, class: 'btn btn-info'
+  = link_to 'Back', players_path, class: 'btn btn-warning'

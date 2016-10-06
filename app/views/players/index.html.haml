@@ -1,23 +1,25 @@
-%h1 Listing players
+%div{class:"col-xs-9"}
+  %h1 Listing players
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Ut nick
-      %th
-      %th
-      %th
+%div{class:"col-xs-9"}
+  %div
+    %table{class:"table table-hover"}
+      %thead
+        %tr
+          %th Name
+          %th UT Nick
+          %th Show
+          %th Edit
+          %th Delete
 
-  %tbody
-    - @players.each do |player|
-      %tr
-        %td= player.name
-        %td= player.ut_nick
-        %td= link_to 'Show', player
-        %td= link_to 'Edit', edit_player_path(player)
-        %td= link_to 'Destroy', player, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Player', new_player_path
+      %tbody
+        - @players.each do |player|
+          %tr
+            %td= player.name
+            %td= player.ut_nick
+            %td= link_to '', player, class: 'glyphicon glyphicon-list-alt'
+            %td= link_to '', edit_player_path(player), class: 'glyphicon glyphicon-edit'
+            %td= link_to '', player, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'glyphicon glyphicon-trash'
+    &nbsp;
+    %div
+      = link_to 'New Player', new_player_path, class: 'btn btn-primary'

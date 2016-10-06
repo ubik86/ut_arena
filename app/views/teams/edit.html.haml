@@ -1,7 +1,7 @@
-%h1 Editing team
+%div{class:"col-xs-9"}
+  %h1 Editing team
 
-= render 'form'
-
-= link_to 'Show', @team
-\|
-= link_to 'Back', teams_path
+%div{class:"col-xs-9"}
+  = render 'form'
+  = link_to 'Show', @team, class: 'btn btn-info'
+  = link_to 'Back', teams_path, class: 'btn btn-warning'

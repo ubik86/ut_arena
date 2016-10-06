@@ -1,7 +1,7 @@
-%h1 Editing score
+%div{class:"col-xs-9"}
+  %h1 Editing score
 
-= render 'form'
-
-= link_to 'Show', @score
-\|
-= link_to 'Back', scores_path
+%div{class:"col-xs-9"}
+  = render 'form'
+  = link_to 'Show', @score, class: 'btn btn-info'
+  = link_to 'Back', scores_path, class: 'btn btn-warning'

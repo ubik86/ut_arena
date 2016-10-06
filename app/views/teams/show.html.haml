@@ -1,12 +1,14 @@
-%p#notice= notice
+%div{class:"col-xs-9"}
+  %p#notice= notice
 
-%p
-  %b Name:
-  = @team.name
-%p
-  %b Ut name:
-  = @team.ut_name
+  %div
+    %b Ut name:
+    = @team.ut_name
+  %div
 
-= link_to 'Edit', edit_team_path(@team)
-\|
-= link_to 'Back', teams_path
+%div{class:"col-xs-9"}
+  &nbsp;
+
+%div{class:"col-xs-9"}
+  = link_to 'Edit', edit_team_path(@team), class: 'btn btn-primary'
+  = link_to 'Back', teams_path, class: 'btn btn-warning'

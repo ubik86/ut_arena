@@ -1,23 +1,23 @@
-%h1 Listing scores
+%div{class:"col-xs-9"}
+  %h1 Listing scores
 
-%table
-  %thead
-    %tr
-      %th Points
-      %th Game at
-      %th
-      %th
-      %th
+%div{class:"col-xs-9"}
+  %div
+    %table{class:"table table-hover"}
+      %thead
+        %tr
+          %th Points
+          %th Show
+          %th Edit
+          %th Delete
 
-  %tbody
-    - @scores.each do |score|
-      %tr
-        %td= score.points
-        %td= score.game_at
-        %td= link_to 'Show', score
-        %td= link_to 'Edit', edit_score_path(score)
-        %td= link_to 'Destroy', score, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Score', new_score_path
+      %tbody
+        - @scores.each do |score|
+          %tr
+            %td= score.points
+            %td= link_to '', score, class: 'glyphicon glyphicon-list-alt'
+            %td= link_to '', edit_score_path(score), class: 'glyphicon glyphicon-edit'
+            %td= link_to '', score, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'glyphicon glyphicon-trash'
+    &nbsp;
+    %div
+      = link_to 'New Score', new_score_path, class: 'btn btn-primary'

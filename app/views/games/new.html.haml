@@ -1,5 +1,6 @@
-%h1 New game
+%div{class:"col-xs-9"}
+  %h1 New game
 
-= render 'form'
-
-= link_to 'Back', games_path
+%div{class:"col-xs-9"}
+  = render 'form'
+  = link_to 'Back', games_path, class: 'btn btn-primary btn-warning'

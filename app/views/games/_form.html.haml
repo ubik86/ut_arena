@@ -1,4 +1,4 @@
-= form_for @game do |f|
+= form_for @game, :html => {:class => "form-horizontal"} do |f|
   - if @game.errors.any?
     #error_explanation
       %h2= "#{pluralize(@game.errors.count, "error")} prohibited this game from being saved:"
@@ -7,10 +7,10 @@
           %li= msg
 
   .field
-    = f.label :name
+    = f.label :name, class: 'control-label col-md-2'
     = f.text_field :name
   .field
-    = f.label :date
+    = f.label :date, class: 'control-label col-md-2'
     = f.datetime_select :date
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: 'btn btn-primary'

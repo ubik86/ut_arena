@@ -1,12 +1,16 @@
-%p#notice= notice
+%div{class:"col-xs-9"}
+  %p#notice= notice
 
-%p
-  %b Name:
-  = @game.name
-%p
-  %b Date:
-  = @game.date
+  %div
+    %b Name:
+    =@game.name
+  %div
+    %b Date:
+    =@game.date
 
-= link_to 'Edit', edit_game_path(@game)
-\|
-= link_to 'Back', games_path
+%div{class:"col-xs-9"}
+  &nbsp;
+
+%div{class:"col-xs-9"}
+  = link_to 'Edit', edit_game_path(@game), class: 'btn btn-primary'
+  = link_to 'Back', games_path, class: 'btn btn-warning'

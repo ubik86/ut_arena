@@ -1,12 +1,13 @@
-%p#notice= notice
+%div{class:"col-xs-9"}
+  %p#notice= notice
 
-%p
-  %b Points:
-  = @score.points
-%p
-  %b Game at:
-  = @score.game_at
+  %div
+    %b Points:
+    =@score.points
 
-= link_to 'Edit', edit_score_path(@score)
-\|
-= link_to 'Back', scores_path
+%div{class:"col-xs-9"}
+  &nbsp;
+
+%div{class:"col-xs-9"}
+  = link_to 'Edit', edit_score_path(@score), class: 'btn btn-primary'
+  = link_to 'Back', scores_path, class: 'btn btn-warning'
