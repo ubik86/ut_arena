@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   has_many :scores
+  belongs_to :import_games
 
   def self.import_game(game)
     game_obj = self.new
@@ -24,4 +25,5 @@ class Game < ApplicationRecord
   def self.import_games(list)
     list.each{|game| self.import_game(game)}
   end
+
 end
