@@ -27,7 +27,7 @@ class Game < ApplicationRecord
       game_obj = Game.new(import_game: import, date: Time.now)
       game_obj.game_importer(game, import)
 
-      game_obj.name = "Import_#{import.class.all.size + 1}_#{Date.today.to_s}"
+      game_obj.name = "Import_#{import.class.all.size}_#{Date.today.to_s}"
       game_obj.save
     end
   end
