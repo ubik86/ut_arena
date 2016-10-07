@@ -5,6 +5,10 @@ module GameLog
 
     stat = []
     stats = []
+    user_stat = []
+    user_stats = []
+    game_setting = []
+    game_settings = []
     log = false
     k = 0
 
@@ -12,7 +16,21 @@ module GameLog
 
       if line =~ /Exit/
         log = true
+        user_stat[k] = user_stats
+        user_stats = []
+        game_settings[k] = game_setting
+        game_setting = []
         next
+      end
+
+      if line =~ /ClientUserinfoChanged/
+        user_stats << line
+        next
+      end
+
+      if line =~ /InitGame/
+        user_stats = []
+        game_setting = line
       end
 
       if log and line =~ /ClientSpawn/
@@ -26,39 +44,65 @@ module GameLog
       stats << line if log
 
     end
-
-    stat
+    [stat, user_stat, game_settings]
   end
 
 
   def parse_gamelog(path)
-    stats = import_gamelog(path)
+    stats, user_stats, game_settings = import_gamelog(path)
     games = Array.new
 
     k = 0
 
     stats.each do |st|
-      cfg = sample_cfg
+      cfg = ffa_cfg
 
-      cfg[:teams][:red] = st[0].match(/(red).(\d+)/)[2]
-      cfg[:teams][:blue] = st[0].match(/(blue).(\d+)/)[2]
+      red = st[0].match(/(red).(\d+)/)[2]
+      blue = st[0].match(/(blue).(\d+)/)[2]
+
+      if red and blue
+        cfg = ctf_cfg
+        cfg[:red][:score] = red
+        cfg[:blue][:score] = blue
+      end
 
       st[1..-1].each do |l|
-        score = l.match(/(score). (\d+)/)[2]   
+        team = 0
+
+        score = l.match(/(score). (\d+)/)[2]
         player = l.match(/(client). (\d+)\s([\w]+)/)[3]
-        cfg[:players][player.to_sym] = score
+
+        user_stats[k].each do |info|
+          if info =~ /#{player}/
+            team = info.match(/\\t\\(.)/)[0][3]
+          end
+        end
+        if team == '1'
+          cfg[:red][:players][player.to_sym] = score
+        elsif team == '2'
+          cfg[:blue][:players][player.to_sym] = score
+        else
+          cfg[:players][player.to_sym] = score
+        end
+
+        map = game_settings[k].match(/mapname\\.*\\sv/)[0][8..-4]
+        cfg[:map] = map
       end
 
       games << cfg
       k += 1
     end
-  
-    return games
+    puts games
+    games
   end
 
 
-  def sample_cfg
-    {teams: {red: 0, blue: 0}, players: {}}
+  def ctf_cfg
+    {red: {players: {}, score: 0}, blue: {players: {}, score: 0}, map: ''}
+  end
+
+  def ffa_cfg
+    {players: {}, map: ''}
   end
 
 end
