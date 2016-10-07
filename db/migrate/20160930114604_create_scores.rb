@@ -3,9 +3,9 @@ class CreateScores < ActiveRecord::Migration[5.0]
     create_table :scores do |t|
       t.references :game
       t.references :player
+      t.references :team
 
       t.integer :points
-      t.datetime :game_at
 
       t.timestamps
     end

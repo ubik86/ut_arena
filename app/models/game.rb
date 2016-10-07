@@ -6,19 +6,17 @@ class Game < ApplicationRecord
     game_obj = self
     
     if game.key?(:teams)
-      # TODO game should have many teams, teams should have their scores
-      # Team.create(ut_name: 'red', game: game_obj, score: game[:teams][:red])
-      # Team.create(ut_name: 'blue', game: game_obj, score: game[:teams][:blue])
-      Team.create(ut_name: 'red')
-      Team.create(ut_name: 'blue')
+      red = Team.create(ut_name: 'red', score: game[:teams][:red])
+      blue = Team.create(ut_name: 'blue', score: game[:teams][:blue])
     end
     game[:players].each do |player, score|
-      player_obj = Player.find_by(ut_nick: player)
+      player_obj = Player.where(ut_nick: player).first
       unless player_obj
-        # TODO remove team_id after refactoring in models
-        player_obj = Player.create(ut_nick: player, team_id: 1)
+        player_obj = Player.create(ut_nick: player)
       end
-      Score.create(player: player_obj, game: game_obj, points: score)
+      # TODO add team detection in game log import
+      team = red
+      Score.create(player: player_obj, game: game_obj, points: score, team: team)
     end
   end
 
