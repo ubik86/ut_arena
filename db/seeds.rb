@@ -8,4 +8,4 @@
 
 
 game = {:teams=>{:red=>122, :blue=>77}, :players=>{:Krzyszti=>78, :rafal=>44, :btr=>33}}
-Game.import_game(game)
+Game.new.import_game(game)
