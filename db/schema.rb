@@ -13,7 +13,6 @@
 ActiveRecord::Schema.define(version: 20161006100133) do
 
   create_table "games", force: :cascade do |t|
-    t.integer  "players_id"
     t.integer  "import_game_id"
     t.string   "name"
     t.string   "ut_map"
@@ -21,7 +20,6 @@ ActiveRecord::Schema.define(version: 20161006100133) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["import_game_id"], name: "index_games_on_import_game_id"
-    t.index ["players_id"], name: "index_games_on_players_id"
   end
 
   create_table "import_games", force: :cascade do |t|
@@ -32,10 +30,12 @@ ActiveRecord::Schema.define(version: 20161006100133) do
   end
 
   create_table "players", force: :cascade do |t|
+    t.integer  "team_id"
     t.string   "name"
     t.string   "ut_nick"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "scores", force: :cascade do |t|
@@ -51,10 +51,13 @@ ActiveRecord::Schema.define(version: 20161006100133) do
   end
 
   create_table "teams", force: :cascade do |t|
+    t.integer  "game_id"
     t.string   "ut_name"
+    t.integer  "team_id"
     t.integer  "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_teams_on_game_id"
   end
 
   create_table "users", force: :cascade do |t|

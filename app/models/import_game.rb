@@ -9,6 +9,8 @@ class ImportGame < ApplicationRecord
 
   private
   def import
+    return true if self.game_logs[0].nil?
+
     path = self.game_logs[0].current_path
     games = parse_gamelog(path)
     Game.games_importer(games, self)

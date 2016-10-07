@@ -8,4 +8,8 @@
 
 
 game = {:teams=>{:red=>122, :blue=>77}, :players=>{:Krzyszti=>78, :rafal=>44, :btr=>33}}
-Game.new.import_game(game)
+
+import = ImportGame.new
+g = Game.new(import_game: import, date: Time.now)
+g.game_importer(game)
+g.save
