@@ -5,8 +5,11 @@ namespace :ut do
     include GameLog
 
     logfile = 'games.log'
-    games = parse_gamelog
-    Game.import_games games
+    path = Dir.pwd + '/public/' + logfile
+
+    import = ImportGame.new
+    games = parse_gamelog path
+    Game.games_importer games, import
     p games
   end
 

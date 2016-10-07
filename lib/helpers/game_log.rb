@@ -1,6 +1,5 @@
 module GameLog
   def import_gamelog(logfile)
-    #path = Dir.pwd + '/public/' + logfile
     file = File.open(logfile,'r')
 
     stat = []
