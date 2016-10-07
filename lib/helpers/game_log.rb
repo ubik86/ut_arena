@@ -91,7 +91,7 @@ module GameLog
       games << cfg
       k += 1
     end
-    puts games
+
     games
   end
 

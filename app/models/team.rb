@@ -24,4 +24,9 @@ class Team < ApplicationRecord
 
     ret
   end
+
+  def team_id=(t)
+    self[:team_id] = self.class.const_get(t.upcase)
+  end
+
 end
