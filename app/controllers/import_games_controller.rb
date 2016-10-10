@@ -1,4 +1,9 @@
 class ImportGamesController < ApplicationController
+
+  def index
+    @imports = ImportGame.all.includes(:games)
+  end
+
   def new
     @game = ImportGame.new
   end
